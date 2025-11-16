@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formularios\FrmGrafo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmGrafo.Designer.cs">
+      <DependentUpon>FrmGrafo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modelos\Arbol.cs" />
     <Compile Include="Modelos\Grafo.cs" />
     <Compile Include="Formularios\FrmArbol.cs">
@@ -64,6 +70,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Formularios\FrmArbol.resx">
       <DependentUpon>FrmArbol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmGrafo.resx">
+      <DependentUpon>FrmGrafo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPrincipal.resx">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>

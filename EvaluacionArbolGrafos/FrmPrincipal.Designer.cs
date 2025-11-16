@@ -60,8 +60,9 @@
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(121, 26);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.salirToolStripMenuItem.Text = "Salir";
+            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
             // innovatecToolStripMenuItem
             // 
@@ -69,7 +70,7 @@
             this.jerarquíaOrganizativaToolStripMenuItem,
             this.sistemaDeRutasDelParqueToolStripMenuItem});
             this.innovatecToolStripMenuItem.Name = "innovatecToolStripMenuItem";
-            this.innovatecToolStripMenuItem.Size = new System.Drawing.Size(87, 24);
+            this.innovatecToolStripMenuItem.Size = new System.Drawing.Size(87, 26);
             this.innovatecToolStripMenuItem.Text = "Innovatec";
             // 
             // jerarquíaOrganizativaToolStripMenuItem
@@ -84,6 +85,7 @@
             this.sistemaDeRutasDelParqueToolStripMenuItem.Name = "sistemaDeRutasDelParqueToolStripMenuItem";
             this.sistemaDeRutasDelParqueToolStripMenuItem.Size = new System.Drawing.Size(287, 26);
             this.sistemaDeRutasDelParqueToolStripMenuItem.Text = " Sistema de Rutas del Parque ";
+            this.sistemaDeRutasDelParqueToolStripMenuItem.Click += new System.EventHandler(this.sistemaDeRutasDelParqueToolStripMenuItem_Click);
             // 
             // Form1
             // 

@@ -23,6 +23,17 @@ namespace EvaluacionArbolGrafos
             FrmArbol frmArbol = new FrmArbol();
             frmArbol.Show();
         }
+
+        private void sistemaDeRutasDelParqueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmGrafo frmGrafo = new FrmGrafo();
+            frmGrafo.Show();
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
     
     
