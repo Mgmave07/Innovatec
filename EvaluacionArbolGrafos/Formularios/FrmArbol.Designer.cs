@@ -163,7 +163,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(647, 450);
+            this.ClientSize = new System.Drawing.Size(657, 450);
             this.Controls.Add(this.btnNivelNodo);
             this.Controls.Add(this.btnContarNodo);
             this.Controls.Add(this.btnBuscar);
