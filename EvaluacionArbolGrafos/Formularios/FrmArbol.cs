@@ -45,14 +45,37 @@ namespace EvaluacionArbolGrafos.Formularios
 
         private void btnAgregarSubNodo_Click(object sender, EventArgs e)
         {
-            if (lblSeleccionado.Text == "")
+            string padre = lblSeleccionado.Text.Trim();
+            string nuevo = tbNuevoNombre.Text.Trim();
+
+            if (string.IsNullOrEmpty(padre))
             {
-                MessageBox.Show("Seleccione un nodo.");
+                MessageBox.Show("Debe seleccionar un departamento en el árbol.");
                 return;
             }
 
-            arbol.Agregar(lblSeleccionado.Text, tbNuevoNombre.Text.Trim());
-            CargarTree();
+            if (string.IsNullOrEmpty(nuevo))
+            {
+                MessageBox.Show("Debe escribir el nombre del nuevo departamento o área.");
+                return;
+            }
+
+            if (arbol.Buscar(nuevo) != null)
+            {
+                MessageBox.Show("Ya existe un departamento o empleado con ese nombre.");
+                return;
+            }
+
+            try
+            {
+                arbol.Agregar(padre, nuevo);
+                tbNuevoNombre.Clear();
+                CargarTree();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
 
         private void btnPreorden_Click(object sender, EventArgs e)
@@ -67,8 +90,17 @@ namespace EvaluacionArbolGrafos.Formularios
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            var n = arbol.Buscar(tbBuscar.Text.Trim());
-            MessageBox.Show(n != null ? "Encontrado" : "No existe");
+            string buscado = tbBuscar.Text.Trim();
+
+            if (string.IsNullOrEmpty(buscado))
+            {
+                MessageBox.Show("Ingrese el nombre a buscar.");
+                return;
+            }
+
+            var n = arbol.Buscar(buscado);
+
+            MessageBox.Show(n != null ? "Encontrado." : "No existe en la jerarquía.");
         }
 
         private void btnContarNodo_Click(object sender, EventArgs e)
@@ -78,8 +110,23 @@ namespace EvaluacionArbolGrafos.Formularios
 
         private void btnNivelNodo_Click(object sender, EventArgs e)
         {
-            int nivel = arbol.Nivel(tbBuscar.Text.Trim());
-            MessageBox.Show(nivel == -1 ? "No existe" : $"Nivel: {nivel}");
+            string buscado = tbBuscar.Text.Trim();
+
+            if (string.IsNullOrEmpty(buscado))
+            {
+                MessageBox.Show("Ingrese el nombre para consultar su nivel.");
+                return;
+            }
+
+            int nivel = arbol.Nivel(buscado);
+
+            if (nivel == -1)
+            {
+                MessageBox.Show("Ese nodo no existe en la jerarquía.");
+                return;
+            }
+
+            MessageBox.Show($"El nivel de '{buscado}' es: {nivel}");
         }
     }
 }

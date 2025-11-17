@@ -21,43 +21,123 @@ namespace EvaluacionArbolGrafos.Formularios
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            grafo.AgregarNodo(tbNombre.Text.Trim());
-            MessageBox.Show("Edificio agregado.");
+            string nombre = tbNombre.Text.Trim();
+
+            if (string.IsNullOrEmpty(nombre))
+            {
+                MessageBox.Show("Debe ingresar un nombre de edificio.");
+                return;
+            }
+
+            if (grafo.Nodos.Contains(nombre))
+            {
+                MessageBox.Show("Ya existe un edificio con ese nombre.");
+                return;
+            }
+
+            grafo.AgregarNodo(nombre);
+            MessageBox.Show("Edificio agregado correctamente.");
+            tbNombre.Clear();
         }
 
         private void btnRuta_Click(object sender, EventArgs e)
         {
-            grafo.AgregarArista(
-                tbOrigen.Text.Trim(),
-                tbDestino.Text.Trim(),
-                int.Parse(tbDistancia.Text.Trim()));
+            string a = tbOrigen.Text.Trim();
+            string b = tbDestino.Text.Trim();
+            string pesoTxt = tbDistancia.Text.Trim();
 
-            MessageBox.Show("Ruta agregada.");
+            if (string.IsNullOrEmpty(a) || string.IsNullOrEmpty(b))
+            {
+                MessageBox.Show("Debe ingresar origen y destino.");
+                return;
+            }
+
+            if (a == b)
+            {
+                MessageBox.Show("El edificio origen y destino no pueden ser el mismo.");
+                return;
+            }
+
+            if (!grafo.Nodos.Contains(a) || !grafo.Nodos.Contains(b))
+            {
+                MessageBox.Show("Ambos edificios deben existir antes de crear una ruta.");
+                return;
+            }
+
+            if (!int.TryParse(pesoTxt, out int peso) || peso <= 0)
+            {
+                MessageBox.Show("La distancia debe ser un número mayor que cero.");
+                return;
+            }
+
+            grafo.AgregarArista(a, b, peso);
+            MessageBox.Show("Ruta agregada correctamente.");
+
+            tbOrigen.Clear();
+            tbDestino.Clear();
+            tbDistancia.Clear();
         }
 
         private void btnConexiones_Click(object sender, EventArgs e)
         {
-            var conn = grafo.Conexiones(tbMostrar.Text.Trim());
+            string nodo = tbMostrar.Text.Trim();
 
-            string txt = "Conexiones:\n\n";
-            foreach (var c in conn)
-                txt += $"{c.Destino} → {c.Peso} m\n";
+            if (string.IsNullOrEmpty(nodo))
+            {
+                MessageBox.Show("Ingrese un edificio.");
+                return;
+            }
 
-            MessageBox.Show(txt);
+            if (!grafo.Nodos.Contains(nodo))
+            {
+                MessageBox.Show("Ese edificio no existe.");
+                return;
+            }
+
+            var conn = grafo.Conexiones(nodo);
+
+            if (conn.Count == 0)
+            {
+                MessageBox.Show("Este edificio no tiene conexiones.");
+                return;
+            }
         }
 
         private void btnRutaCorta_Click(object sender, EventArgs e)
         {
-            var r = grafo.Dijkstra(tbInicio.Text.Trim(), tbFin.Text.Trim());
+            string ini = tbInicio.Text.Trim();
+            string fin = tbFin.Text.Trim();
+
+            if (string.IsNullOrEmpty(ini) || string.IsNullOrEmpty(fin))
+            {
+                MessageBox.Show("Debe ingresar edificio de inicio y fin.");
+                return;
+            }
+
+            if (!grafo.Nodos.Contains(ini) || !grafo.Nodos.Contains(fin))
+            {
+                MessageBox.Show("Ambos edificios deben existir.");
+                return;
+            }
+
+            if (ini == fin)
+            {
+                MessageBox.Show("El inicio y el destino no pueden ser el mismo.");
+                return;
+            }
+
+            var r = grafo.Dijkstra(ini, fin);
 
             if (r.Costo == int.MaxValue)
             {
-                MessageBox.Show("No hay ruta.");
+                MessageBox.Show("No existe ruta entre esos edificios.");
                 return;
             }
 
             MessageBox.Show(
-                $"Ruta:\n{string.Join(" → ", r.Camino)}\n\nDistancia total: {r.Costo} m"
+                "Ruta más corta:\n" +
+                string.Join(" → ", r.Camino) +
+                $"\nDistancia total: {r.Costo} metros"
             );
         }
     }
